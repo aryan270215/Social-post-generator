@@ -61,12 +61,6 @@ export const SpinnerIcon: React.FC<{ className?: string }> = ({ className = '' }
     </svg>
 );
 
-export const SparklesIcon: React.FC<{ className?: string }> = ({ className = '' }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 ${className}`} viewBox="0 0 20 20" fill="currentColor">
-        <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2l4.444 1.111a1 1 0 01.41 1.833l-3.23 3.23.863 4.862a1 1 0 01-1.48 1.054L10 15.56l-4.156 2.77a1 1 0 01-1.48-1.054l.863-4.862L2.001 10.144a1 1 0 01.41-1.833L6.854 7.2 8.033 2.744A1 1 0 019 2h3z" clipRule="evenodd" />
-    </svg>
-);
-
 export const PositionAboveIcon: React.FC = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
         <rect x="3" y="4" width="14" height="6" rx="1" />

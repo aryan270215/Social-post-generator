@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { GoogleGenAI, Type } from "@google/genai";
 import type { StyleOptions, FilterOptions, TextShadowOptions, GradientOptions, TextOutlineOptions, CustomPreset, GlowOptions, NeonOptions, EditorState, TextAnimationOptions, AdvancedTextEffectOptions, ContentImageOptions } from '../types';
 import { FONT_OPTIONS, ASPECT_RATIO_OPTIONS, BACKGROUND_PRESETS, TEMPLATES } from '../types';
 import {
@@ -10,7 +9,6 @@ import {
   UndoIcon,
   RedoIcon,
   SpinnerIcon,
-  SparklesIcon,
   PositionAboveIcon,
   PositionBelowIcon,
   ObjectContainIcon,
@@ -101,9 +99,6 @@ const Editor: React.FC<EditorProps> = ({
 
   const [backgroundTab, setBackgroundTab] = useState<BackgroundTab>('presets');
   const [customPresets, setCustomPresets] = useState<CustomPreset[]>([]);
-  const [suggestedHashtags, setSuggestedHashtags] = useState<string[]>([]);
-  const [isSuggesting, setIsSuggesting] = useState<boolean>(false);
-  const [suggestionError, setSuggestionError] = useState<string | null>(null);
 
   useEffect(() => {
     // Determine initial background tab based on props
@@ -293,53 +288,6 @@ const Editor: React.FC<EditorProps> = ({
     setCustomPresets(updatedPresets);
     localStorage.setItem('customSocialPresets', JSON.stringify(updatedPresets));
   };
-
-  const handleSuggestHashtags = async () => {
-    if (!postText.trim()) {
-        setSuggestionError("Please enter some text for your post first.");
-        return;
-    }
-    setIsSuggesting(true);
-    setSuggestionError(null);
-    setSuggestedHashtags([]);
-
-    try {
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
-        const response = await ai.models.generateContent({
-            model: "gemini-2.5-flash",
-            contents: `Based on the following social media post, suggest 5 to 8 relevant hashtags. Return them as a JSON array of strings, without the '#' symbol. \n\nPOST:\n"""\n${postText}\n"""`,
-            config: {
-                responseMimeType: "application/json",
-                responseSchema: {
-                    type: Type.ARRAY,
-                    items: {
-                        type: Type.STRING,
-                        description: "A relevant hashtag without the '#' prefix."
-                    },
-                },
-            },
-        });
-
-        const jsonStr = response.text.trim();
-        const hashtags = JSON.parse(jsonStr);
-        setSuggestedHashtags(hashtags);
-
-    } catch (error) {
-        console.error("Failed to suggest hashtags:", error);
-        setSuggestionError("Sorry, we couldn't generate hashtags right now. Please try again later.");
-    } finally {
-        setIsSuggesting(false);
-    }
-  };
-
-  const handleHashtagClick = (tag: string) => {
-    setEditorState(prev => {
-        const newText = prev.postText.trim();
-        const separator = newText.length > 0 && !/\s$/.test(newText) ? ' ' : '';
-        return { ...prev, postText: `${newText}${separator}#${tag}` };
-    });
-  };
   
   const solidColorValue = (typeof styleOptions.background === 'string' && !styleOptions.background.startsWith('linear-gradient')) ? styleOptions.background : '#ffffff';
 
@@ -465,42 +413,6 @@ const Editor: React.FC<EditorProps> = ({
           className="w-full p-3 bg-gray-700 border border-gray-600 rounded-md focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
           placeholder="Enter your post text..."
         />
-        <div className="mt-4">
-            <button
-                onClick={handleSuggestHashtags}
-                disabled={isSuggesting}
-                className="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-purple-600 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-purple-500 transition-all disabled:bg-purple-600/50 disabled:cursor-not-allowed"
-            >
-                {isSuggesting ? (
-                    <>
-                        <SpinnerIcon className="mr-2" />
-                        Generating...
-                    </>
-                ) : (
-                    <>
-                        <SparklesIcon className="mr-2" />
-                        Suggest Hashtags (AI)
-                    </>
-                )}
-            </button>
-            {suggestionError && <p className="mt-2 text-sm text-red-400">{suggestionError}</p>}
-            {suggestedHashtags.length > 0 && (
-                <div className="mt-4 p-3 bg-gray-900/50 rounded-lg">
-                    <p className="text-xs text-gray-400 mb-2">Click to add:</p>
-                    <div className="flex flex-wrap gap-2">
-                        {suggestedHashtags.map((tag, index) => (
-                            <button
-                                key={index}
-                                onClick={() => handleHashtagClick(tag)}
-                                className="px-2.5 py-1 text-sm text-cyan-200 bg-cyan-800/50 rounded-full hover:bg-cyan-700/70 transition-colors"
-                            >
-                                #{tag}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-            )}
-        </div>
       </ControlWrapper>
       
       <ControlWrapper title="Content Image (Optional)">
