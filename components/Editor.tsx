@@ -443,6 +443,18 @@ const Editor: React.FC<EditorProps> = ({
         </div>
       </ControlWrapper>
 
+      <div className="my-8">
+        <a 
+          href="mailto:patadiaaryan15@gmail.com?subject=Inquiry about Ad Space on Social Post Generator"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Click to inquire about advertising"
+          className="block w-full p-6 text-center border-2 border-dashed border-gray-600 rounded-lg hover:border-cyan-500 hover:bg-gray-800/50 transition-all"
+        >
+          <span className="text-gray-500 font-semibold tracking-wider">Your Ad Here</span>
+        </a>
+      </div>
+
       <hr className="border-gray-700 my-8" />
       
       <ControlWrapper title="Post Content">
@@ -561,7 +573,7 @@ const Editor: React.FC<EditorProps> = ({
       
       <div className="my-8">
         <a 
-          href="mailto:ads@example.com?subject=Inquiry about Ad Space on Social Post Generator"
+          href="mailto:patadiaaryan15@gmail.com?subject=Inquiry about Ad Space on Social Post Generator"
           target="_blank"
           rel="noopener noreferrer"
           title="Click to inquire about advertising"
@@ -766,7 +778,7 @@ const Editor: React.FC<EditorProps> = ({
 
       <div className="my-8">
         <a 
-          href="mailto:ads@example.com?subject=Inquiry about Ad Space on Social Post Generator"
+          href="mailto:patadiaaryan15@gmail.com?subject=Inquiry about Ad Space on Social Post Generator"
           target="_blank"
           rel="noopener noreferrer"
           title="Click to inquire about advertising"
@@ -922,6 +934,18 @@ const Editor: React.FC<EditorProps> = ({
             </div>
         </div>
       </ControlWrapper>
+
+      <div className="my-8">
+        <a 
+          href="mailto:patadiaaryan15@gmail.com?subject=Inquiry about Ad Space on Social Post Generator"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Click to inquire about advertising"
+          className="block w-full p-6 text-center border-2 border-dashed border-gray-600 rounded-lg hover:border-cyan-500 hover:bg-gray-800/50 transition-all"
+        >
+          <span className="text-gray-500 font-semibold tracking-wider">Your Ad Here</span>
+        </a>
+      </div>
 
       <ControlWrapper title="Text Animation">
         <div className="p-4 bg-gray-700/50 rounded-lg space-y-4">

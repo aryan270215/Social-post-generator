@@ -231,7 +231,7 @@ const App: React.FC = () => {
             </button>
             <div className="mt-8 w-full max-w-xl mx-auto">
               <a 
-                href="mailto:ads@example.com?subject=Inquiry about Ad Space on Social Post Generator"
+                href="mailto:patadiaaryan15@gmail.com?subject=Inquiry about Ad Space on Social Post Generator"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Click to inquire about advertising"
