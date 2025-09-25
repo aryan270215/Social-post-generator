@@ -1,0 +1,5 @@
+{
+  "name": "Social Post Image Generator",
+  "description": "A tool to convert social media posts into beautiful, shareable images. Customize backgrounds, fonts, colors, and more to create the perfect visual representation of your posts for any platform.",
+  "requestFramePermissions": []
+}

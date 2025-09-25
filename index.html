@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Social Post Image Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@400;700&family=Inter:wght@400;700&family=Lobster&family=Montserrat:wght@400;700&family=Orbitron:wght@400;700&family=Pacifico&family=Playfair+Display:wght@400;700&family=Poppins:wght@400;600&family=Roboto+Mono:wght@400;600&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      /* Define font classes to be used with Tailwind */
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .font-inter { font-family: 'Inter', sans-serif; }
+      .font-poppins { font-family: 'Poppins', sans-serif; }
+      .font-lobster { font-family: 'Lobster', cursive; }
+      .font-roboto-mono { font-family: 'Roboto Mono', monospace; }
+      .font-montserrat { font-family: 'Montserrat', sans-serif; }
+      .font-playfair-display { font-family: 'Playfair Display', serif; }
+      .font-dancing-script { font-family: 'Dancing Script', cursive; }
+      .font-bebas-neue { font-family: 'Bebas Neue', cursive; }
+      .font-pacifico { font-family: 'Pacifico', cursive; }
+      .font-roboto-slab { font-family: 'Roboto Slab', serif; }
+      .font-orbitron { font-family: 'Orbitron', sans-serif; }
+
+      /* Text Animations */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes slideInUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-40px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(40px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes zoomIn {
+        from { opacity: 0; transform: scale(0.5); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      @keyframes bounceIn {
+        from, 20%, 40%, 60%, 80%, to {
+            animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        }
+        0% { opacity: 0; transform: scale3d(.3, .3, .3); }
+        20% { transform: scale3d(1.1, 1.1, 1.1); }
+        40% { transform: scale3d(.9, .9, .9); }
+        60% { opacity: 1; transform: scale3d(1.03, 1.03, 1.03); }
+        80% { transform: scale3d(.97, .97, .97); }
+        to { opacity: 1; transform: scale3d(1, 1, 1); }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.20.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-gray-900 text-white selection:bg-cyan-400 selection:text-gray-900">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
