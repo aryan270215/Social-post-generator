@@ -138,7 +138,7 @@ const Editor: React.FC<EditorProps> = ({
             setBackgroundTab('image');
           }
           if (field === 'textFillImage' && result) {
-            newState.styleOptions.textColor = 'transparent';
+            newState.styleOptions = { ...prev.styleOptions, textColor: 'transparent' };
           }
           return newState;
         });
@@ -149,12 +149,22 @@ const Editor: React.FC<EditorProps> = ({
 
   const clearImage = (field: 'profilePic' | 'backgroundImage' | 'contentImage' | 'textFillImage') => {
     setEditorState(prev => {
-      const newState: EditorState = { ...prev, [field]: null };
+      const nextState = { ...prev };
+      nextState[field] = null;
+
       if (field === 'backgroundImage') {
-        newState.filters = initialFilters;
-        newState.styleOptions.background = '#111827';
+        nextState.filters = initialFilters;
+        nextState.styleOptions = {
+          ...nextState.styleOptions,
+          background: '#111827'
+        };
+      } else if (field === 'textFillImage') {
+        nextState.styleOptions = {
+          ...nextState.styleOptions,
+          textColor: '#ffffff' // Restore default color
+        };
       }
-      return newState;
+      return nextState;
     });
   };
 
@@ -289,6 +299,24 @@ const Editor: React.FC<EditorProps> = ({
     localStorage.setItem('customSocialPresets', JSON.stringify(updatedPresets));
   };
   
+  const handleResetBackground = () => {
+    setEditorState(prev => ({
+      ...prev,
+      backgroundImage: null,
+      filters: initialFilters,
+      styleOptions: {
+        ...prev.styleOptions,
+        background: BACKGROUND_PRESETS[0].value,
+      },
+      gradientOptions: {
+        start: '#1e3a8a',
+        end: '#4f46e5',
+        angle: 145,
+      }
+    }));
+    setBackgroundTab('presets');
+  };
+
   const solidColorValue = (typeof styleOptions.background === 'string' && !styleOptions.background.startsWith('linear-gradient')) ? styleOptions.background : '#ffffff';
 
   return (
@@ -569,7 +597,7 @@ const Editor: React.FC<EditorProps> = ({
                           <>
                             <div className="mt-4">
                                 <p className="text-xs text-gray-400 mb-2">Preview:</p>
-                                <img src={backgroundImage} alt="Background preview" className="w-full h-24 object-cover rounded-md border border-gray-600" />
+                                <img src={backgroundImage} alt="Background preview" className="w-full h-40 object-cover rounded-lg border border-gray-600" />
                             </div>
                             <div className="space-y-4 pt-4 mt-4 border-t border-gray-600/50">
                               <h3 className="text-sm font-medium text-gray-300">Image Filters</h3>
@@ -603,6 +631,12 @@ const Editor: React.FC<EditorProps> = ({
                 )}
             </div>
         </div>
+        <button
+          onClick={handleResetBackground}
+          className="w-full mt-4 px-3 py-2 text-sm font-medium text-center text-white bg-gray-600 rounded-lg hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-800"
+        >
+          Reset to Default Background
+        </button>
       </ControlWrapper>
 
       <ControlWrapper title="Font Family">
